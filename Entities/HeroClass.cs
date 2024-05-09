@@ -19,10 +19,10 @@ namespace Homm5Parser.Entities {
 
     [Serializable]
     public class HeroClass {
-        public FileRef? Name { get; set; }
+        public FileRef? NameFileRef { get; set; }
         [XmlArrayItem("Item")]
         public List<SkillProb>? SkillsProbs { get; set; }
-        public AttributeProbs? AttributesProbs { get; set; }
+        public AttributeProbs? AttributeProbs { get; set; }
     }
 
     public class HeroClassDataModel {

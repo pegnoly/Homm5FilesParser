@@ -43,14 +43,10 @@ namespace Homm5Parser.Concrete {
         private HeroClassDataModel ConvertToDataModel(HeroClass source, string id) {
             HeroClassDataModel model = new HeroClassDataModel();
             model.Id = id;
-            model.AttributesProbs = source.AttributesProbs;
+            model.AttributesProbs = source.AttributeProbs;
             model.SkillsProbs = source.SkillsProbs;
-            if (source.Name is not null && source.Name!.href != string.Empty) {
-                string nameKey = _database.GetActualKey(source.Name.href!, _heroClassXdbKey)!;
-                if (nameKey is not null) {
-                    model.NamePath = nameKey;
-                    model.Name = _database.GetTextFile(nameKey);
-                }
+            if (source.NameFileRef is not null && source.NameFileRef.href is not null && source.NameFileRef.href != string.Empty) {
+                (model.NamePath, model.Name) = CommonGenerators.TextFileFromKey(source.NameFileRef.href, _database, _heroClassXdbKey);
             }
             return model;
         }
