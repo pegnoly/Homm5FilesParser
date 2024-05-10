@@ -23,7 +23,7 @@ namespace Homm5Parser.Concrete {
 
     public class HeroSkillDataParser : IParser {
 
-        private readonly string _heroSkillsXdbKey = "GameMechanics/RefTables/Skills.xdb";
+        private readonly string _heroSkillsXdbKey = "/GameMechanics/RefTables/Skills.xdb";
         private readonly string _iconsFolder = $"{Paths.HommData}skills\\";
 
         private List<SkillDataModel> _models;

@@ -23,7 +23,7 @@ namespace Homm5Parser.Concrete {
     /// </summary>
     public class SpellsDataParser : IParser  {
 
-        private readonly string _spellsXdbKey = "GameMechanics/RefTables/UndividedSpells.xdb";
+        private readonly string _spellsXdbKey = "/GameMechanics/RefTables/UndividedSpells.xdb";
         private readonly string _iconsFolder = $"{Paths.HommData}spells\\";
         private XmlSerializer _spellSerializer = new XmlSerializer(typeof(Spell));
 
@@ -45,7 +45,7 @@ namespace Homm5Parser.Concrete {
             SpellsTable spellsEntities = (SpellsTable)spellsTableSerializer.Deserialize(spellsTableDocument.CreateReader())!;
             foreach (SpellObject entity in spellsEntities.objects!) {
                 if(entity.Obj is not null && entity.Obj.href is not null && entity.Obj.href != string.Empty) {
-                    string spellKey = _database.GetActualKey(entity.Obj!.href!.Replace("#xpointer(/Spell)", string.Empty).Remove(0, 1), _spellsXdbKey)!;
+                    string spellKey = _database.GetActualKey(entity.Obj!.href!.Replace("#xpointer(/Spell)", string.Empty), _spellsXdbKey)!;
                     if(spellKey is not null) {
                         string spellFile = _database.GetTextFile(spellKey)!;
                         Spell spell = (Spell)_spellSerializer.Deserialize(XDocument.Parse(spellFile).CreateReader())!;

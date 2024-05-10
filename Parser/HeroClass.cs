@@ -19,7 +19,7 @@ namespace Homm5Parser.Concrete {
 
     public class HeroClassDataParser: IParser {
 
-        private readonly string _heroClassXdbKey = "GameMechanics/RefTables/HeroClass.xdb";
+        private readonly string _heroClassXdbKey = "/GameMechanics/RefTables/HeroClass.xdb";
 
         private FilesDatabase _database;
         private List<HeroClassDataModel> _models;

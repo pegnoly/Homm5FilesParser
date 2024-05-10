@@ -25,7 +25,7 @@ namespace Homm5Parser.Concrete {
     /// </summary>
     public class CreaturesDataParser : IParser {
 
-        private readonly string _creaturesXdbKey = "GameMechanics/RefTables/Creatures.xdb";
+        private readonly string _creaturesXdbKey = "/GameMechanics/RefTables/Creatures.xdb";
         private readonly string _iconsFolder = $"{Paths.HommData}creatures\\";
 
         private FilesDatabase? _database;
@@ -47,7 +47,7 @@ namespace Homm5Parser.Concrete {
             XDocument creaturesTableDocument = XDocument.Parse(_database!.GetTextFile(_creaturesXdbKey)!);
             CreaturesTable creaturesEntities = (CreaturesTable)creaturesTableSerializer.Deserialize(creaturesTableDocument.CreateReader())!;
             foreach (CreatureObject entity in creaturesEntities.objects!) {
-                string key = entity.Obj!.href!.Replace('\\', '/').Replace("#xpointer(/Creature)", string.Empty).Remove(0, 1);
+                string key = entity.Obj!.href!.Replace('\\', '/').Replace("#xpointer(/Creature)", string.Empty);
                 XDocument creatureDocument = XDocument.Parse(_database.GetTextFile(key)!);
                 Creature creature = (Creature)_creatureSerializer.Deserialize(creatureDocument.CreateReader())!;
                 _models!.Add(ConvertToDataModel(creature, entity.ID!, key));
@@ -83,7 +83,7 @@ namespace Homm5Parser.Concrete {
             model.BaseCreature = creature.BaseCreature;
 
             if (creature.Visual is not null && creature.Visual.href is not null && creature.Visual.href != string.Empty) {
-                XDocument doc = XDocument.Parse(_database!.GetTextFile(creature.Visual!.href!.Replace("#xpointer(/CreatureVisual)", string.Empty).Remove(0, 1))!);
+                XDocument doc = XDocument.Parse(_database!.GetTextFile(creature.Visual!.href!.Replace("#xpointer(/CreatureVisual)", string.Empty))!);
                 CreatureVisual visual = (CreatureVisual)_visualSerializer.Deserialize(doc.CreateReader())!;
                 if(visual.CreatureNameFileRef is not null && visual.CreatureNameFileRef.href is not null && visual.CreatureNameFileRef.href != string.Empty) {
                     (model.NamePath, model.Name) = CommonGenerators.TextFileFromKey(visual.CreatureNameFileRef.href, _database, key); 

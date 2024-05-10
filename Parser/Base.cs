@@ -51,7 +51,7 @@ namespace Homm5Parser {
                 else {
                     s = Encoding.UTF8.GetString(b);
                 }
-                string key = entry.FileName.Replace("\\", "/");
+                string key = $"/{entry.FileName.Replace("\\", "/")}";
                 _textFiles[key] = s;
                 _modifiedTimes[key] = entry.LastWriteTime;
                 _directories[key] = CheckDirectory(key);
@@ -63,7 +63,7 @@ namespace Homm5Parser {
 
         private void ProcessImageFile(Entry entry) {
             if (!_imageFiles.ContainsKey(entry.FileName) || (_modifiedTimes[entry.FileName] < entry.LastWriteTime)) {
-                string key = entry.FileName.Replace("\\", "/");
+                string key = $"/{entry.FileName.Replace("\\", "/")}";
                 MemoryStream stream = new MemoryStream();
                 entry.Extract(stream);
                 _imageFiles[key] = stream.ToArray();

@@ -19,7 +19,7 @@ namespace Homm5FilesParser.Parser {
 
     public class AbilitiesDataParser : IParser {
 
-        private readonly string _abilitiesXdbKey = "GameMechanics/RefTables/CombatAbilities.xdb";
+        private readonly string _abilitiesXdbKey = "/GameMechanics/RefTables/CombatAbilities.xdb";
 
         private List<AbilityDataModel> _models;
         private FilesDatabase _database;

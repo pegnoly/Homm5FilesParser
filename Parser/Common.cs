@@ -11,9 +11,9 @@ namespace Homm5Parser {
 
     public static class CommonGenerators {
         public static (string?, string?) TextFileFromKey(string key, FilesDatabase database, string baseFileKey) {
-            if (key.StartsWith("/")) {
-                key = key.Remove(0, 1);
-            }
+            //if (key.StartsWith("/")) {
+            //    key = key.Remove(0, 1);
+            //}
             string fileKey = database.GetActualKey(key, baseFileKey)!;
             if (fileKey is not null) {
                 return (fileKey, database.GetTextFile(fileKey)!);
@@ -22,9 +22,9 @@ namespace Homm5Parser {
         }
 
         public static (string?, string?) ImageFileFromKey(string key, FilesDatabase database, string baseFileKey, string id, string dirToSave) {
-            if (key.StartsWith("/")) {
-                key = key.Remove(0, 1);
-            }
+            //if (key.StartsWith("/")) {
+            //    key = key.Remove(0, 1);
+            //}
             string iconKey = database.GetActualKey(key, baseFileKey)!;
             if (iconKey is not null && iconKey != string.Empty) {
                 Texture texture = (Texture)CommonSerializers.Texture.Deserialize(XDocument.Parse(database.GetTextFile(iconKey)!).CreateReader())!;

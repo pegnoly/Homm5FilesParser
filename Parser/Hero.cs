@@ -40,12 +40,12 @@ namespace Homm5Parser.Concrete {
 
         public void Parse() {
             foreach (string group in _possibleHeroesGroups) {
-                XDocument heroesDocument = XDocument.Parse(_database.GetTextFile($"MapObjects/_(AdvMapSharedGroup)/Heroes/{group}.xdb")!);
+                XDocument heroesDocument = XDocument.Parse(_database.GetTextFile($"/MapObjects/_(AdvMapSharedGroup)/Heroes/{group}.xdb")!);
                 XmlSerializer heroesGroupSerializer = new XmlSerializer(typeof(AdvMapSharedGroup));
                 AdvMapSharedGroup heroesGroup = (AdvMapSharedGroup)heroesGroupSerializer.Deserialize(heroesDocument.CreateReader())!;
                 foreach (FileRef link in heroesGroup.links) {
                     string href = link.href!;
-                    string key = href.Replace("#xpointer(/AdvMapHeroShared)", string.Empty).Remove(0, 1);
+                    string key = href.Replace("#xpointer(/AdvMapHeroShared)", string.Empty);
                     string heroXdbString = _database.GetTextFile(key)!;
                     XDocument heroDoc = XDocument.Parse(heroXdbString);
                     AdvMapHeroShared hero = (AdvMapHeroShared)_heroSerializer.Deserialize(heroDoc.CreateReader())!;

@@ -20,7 +20,7 @@ namespace Homm5Parser.Concrete {
 
     public class ArtifactsDataParser: IParser {
 
-        private readonly string _artifactsXdbKey = "GameMechanics/RefTables/Artifacts.xdb";
+        private readonly string _artifactsXdbKey = "/GameMechanics/RefTables/Artifacts.xdb";
         private readonly string _iconsFolfer = $"{Paths.HommData}artifacts\\";
 
         private List<ArtifactDataModel> _models;
